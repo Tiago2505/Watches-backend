@@ -15,7 +15,7 @@ export class PasswordResetController{
     ){}
 
     createNewCode=async(req: Request, res: Response)=>{
-
+        console.log("Entró al endpoint de password reset");
         try {
 
             const [error, createPasswordResetDto] = CreatePasswordResetDto.create(req.body);
