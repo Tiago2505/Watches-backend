@@ -26,42 +26,24 @@ export class EmailService {
     },
   });
 
-  async verifyConnection() {
-  try {
-    await this.transporter.verify();
-    console.log("SMTP conectado correctamente");
-  } catch (error) {
-    console.error("Error SMTP:", error);
-  }
-}
-
 
   async sendEmail(options: SendMailOptions): Promise<boolean> {
-  const { to, subject, htmlBody, attachements = [] } = options;
+    const { to, subject, htmlBody, attachements = [] } = options;
 
-  try {
-    await this.verifyConnection();
-    console.log("Intentando enviar correo a:", to);
+    try {
+      const sentInformation = await this.transporter.sendMail({
+        to: to,
+        subject: subject,
+        html: htmlBody,
+        attachments: attachements,
+      });
 
-    const sentInformation = await this.transporter.sendMail({
-      to,
-      subject,
-      html: htmlBody,
-      attachments: attachements,
-    });
 
-    console.log("Correo enviado correctamente");
-    console.log(sentInformation);
+      return true;
 
-    return true;
-
-  } catch (error) {
-    console.error("Error enviando correo:");
-    console.error(error);
-    console.log('ha habido un error')
-
-    return false;
+    } catch (error) {
+      return false;
+    }
   }
-}
   
 }

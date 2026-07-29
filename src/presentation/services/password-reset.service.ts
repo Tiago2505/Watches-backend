@@ -51,7 +51,7 @@ export class PasswordResetService {
       htmlBody: htmlBody,
     };
 
-    const sendEmail = this.emailService.sendEmail(options);
+    const sendEmail = await this.emailService.sendEmail(options);
 
     if(!sendEmail) throw CustomError.internalServer('Could not send email');
 
