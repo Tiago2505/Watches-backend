@@ -26,11 +26,21 @@ export class EmailService {
     },
   });
 
+  async verifyConnection() {
+  try {
+    await this.transporter.verify();
+    console.log("SMTP conectado correctamente");
+  } catch (error) {
+    console.error("Error SMTP:", error);
+  }
+}
+
 
   async sendEmail(options: SendMailOptions): Promise<boolean> {
   const { to, subject, htmlBody, attachements = [] } = options;
 
   try {
+    this.verifyConnection();
     console.log("Intentando enviar correo a:", to);
 
     const sentInformation = await this.transporter.sendMail({
