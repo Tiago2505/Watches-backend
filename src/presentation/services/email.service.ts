@@ -48,6 +48,7 @@ export class EmailService {
   } catch (error) {
     console.error("Error enviando correo:");
     console.error(error);
+    console.log('ha habido un error')
 
     return false;
   }
