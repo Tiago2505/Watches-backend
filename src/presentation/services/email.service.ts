@@ -28,22 +28,29 @@ export class EmailService {
 
 
   async sendEmail(options: SendMailOptions): Promise<boolean> {
-    const { to, subject, htmlBody, attachements = [] } = options;
+  const { to, subject, htmlBody, attachements = [] } = options;
 
-    try {
-      const sentInformation = await this.transporter.sendMail({
-        to: to,
-        subject: subject,
-        html: htmlBody,
-        attachments: attachements,
-      });
+  try {
+    console.log("Intentando enviar correo a:", to);
 
+    const sentInformation = await this.transporter.sendMail({
+      to,
+      subject,
+      html: htmlBody,
+      attachments: attachements,
+    });
 
-      return true;
+    console.log("Correo enviado correctamente");
+    console.log(sentInformation);
 
-    } catch (error) {
-      return false;
-    }
+    return true;
+
+  } catch (error) {
+    console.error("Error enviando correo:");
+    console.error(error);
+
+    return false;
   }
+}
   
 }
