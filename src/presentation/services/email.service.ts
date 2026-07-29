@@ -40,7 +40,7 @@ export class EmailService {
   const { to, subject, htmlBody, attachements = [] } = options;
 
   try {
-    this.verifyConnection();
+    await this.verifyConnection();
     console.log("Intentando enviar correo a:", to);
 
     const sentInformation = await this.transporter.sendMail({
