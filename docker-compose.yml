@@ -1,6 +1,31 @@
 version: '3.8'
 
 services:
+  # app:
+  #   image: tiagos2505/watches-backend
+  #   container_name: watches-backend
+  #   restart: always
+  #   depends_on:
+  #     - postgres-db
+  #   volumes:
+  #     - .:/app/
+  #     - /app/node_modules
+  #   environment:
+  #     POSTGRES_URL: ${POSTGRES_URL}
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASS: ${POSTGRES_PASS}
+  #     POSTGRES_DB: ${POSTGRES_DB}
+  #     CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+  #     CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+  #     CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+  #     JWT_SEED: ${JWT_SEED}
+  #     PUBLIC_PATH: ${PUBLIC_PATH}
+  #     PORT: ${PORT}
+  #     MAILER_SECRET_KEY: ${MAILER_SECRET_KEY}
+  #     MAILER_EMAIL: ${MAILER_EMAIL}
+  #   ports:
+  #     - ${PORT}:${PORT}
+
   postgres-db:
     image: postgres:15.3
     restart: always
