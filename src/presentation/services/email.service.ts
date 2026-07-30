@@ -15,7 +15,6 @@ export class EmailService {
     const { to, subject, htmlBody } = options;
 
     try {
-      console.log("Intentando enviar correo a:", to);
 
       const { data, error } = await this.resend.emails.send({
         from: `Watches <${envs.MAILER_EMAIL}>`,
