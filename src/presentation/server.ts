@@ -29,7 +29,7 @@ export class Server {
       "https://mobilize-mutation-aftermath.ngrok-free.dev",
       "https://1qjdq8c9-4200.use2.devtunnels.ms",
       "https://unique-sprite-9ff5bf.netlify.app",
-      "https://api.dcprograming.com/api"
+      "https://api.dcprograming.com"
     ];
 
     this.app.use(
