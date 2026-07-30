@@ -1,5 +1,4 @@
-import nodemailer from "nodemailer";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
+import { Resend } from "resend";
 
 import { envs } from "../../config";
 
@@ -7,52 +6,37 @@ interface SendMailOptions {
   to: string | string[];
   subject: string;
   htmlBody: string;
-  attachements?: Attachement[];
-}
-
-interface Attachement {
-  filename: string;
-  path: string;
 }
 
 export class EmailService {
-  constructor() {}
-
-  private transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: envs.MAILER_EMAIL,
-    pass: envs.MAILER_SECRET_KEY,
-  },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
-  tls: {
-    rejectUnauthorized: false,
-  },
-} as SMTPTransport.Options);
+  private resend = new Resend(envs.RESEND_API_KEY);
 
   async sendEmail(options: SendMailOptions): Promise<boolean> {
-    const { to, subject, htmlBody, attachements = [] } = options;
+    const { to, subject, htmlBody } = options;
 
     try {
-      console.log("1. Iniciando envío de correo");
+      console.log("Intentando enviar correo a:", to);
 
-      const sentInformation = await this.transporter.sendMail({
+      const { data, error } = await this.resend.emails.send({
+        from: `Watches <${envs.MAILER_EMAIL}>`,
         to,
         subject,
         html: htmlBody,
-        attachments: attachements,
       });
 
-      console.log("2. Correo enviado");
-      console.log(sentInformation.messageId);
+      if (error) {
+        console.error("Error de Resend:");
+        console.error(error);
+
+        return false;
+      }
+
+      console.log("Correo enviado correctamente");
+      console.log(data);
 
       return true;
     } catch (error) {
-      console.error("3. Error enviando correo");
+      console.error("Error enviando correo:");
       console.error(error);
 
       return false;

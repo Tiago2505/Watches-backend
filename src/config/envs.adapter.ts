@@ -10,7 +10,7 @@ export const envs = {
     CLOUDINARY_API_KEY: env.get('CLOUDINARY_API_KEY').required().asString(),
     CLOUDINARY_API_SECRET: env.get('CLOUDINARY_API_SECRET').required().asString(),
     JWT_SEED: env.get('JWT_SEED').required().asString(),
-    MAILER_SECRET_KEY: env.get('MAILER_SECRET_KEY').required().asString(),
+    RESEND_API_KEY: env.get('RESEND_API_KEY').required().asString(),
     MAILER_EMAIL: env.get('MAILER_EMAIL').required().asEmailString(),
 
 };
