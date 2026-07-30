@@ -19,18 +19,20 @@ export class EmailService {
   constructor() {}
 
   private transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: false,
-    auth: {
-      user: envs.MAILER_EMAIL,
-      pass: envs.MAILER_SECRET_KEY,
-    },
-    family: 4,
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
-  } as SMTPTransport.Options);
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: envs.MAILER_EMAIL,
+    pass: envs.MAILER_SECRET_KEY,
+  },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
+  tls: {
+    rejectUnauthorized: false,
+  },
+} as SMTPTransport.Options);
 
   async sendEmail(options: SendMailOptions): Promise<boolean> {
     const { to, subject, htmlBody, attachements = [] } = options;
